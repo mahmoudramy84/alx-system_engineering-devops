@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Update package index
+sudo apt-get update
+
+# Install Nginx
+sudo apt-get install -y nginx
+
+# Create the directory for Nginx default site
+sudo mkdir -p /var/www/html
+
+# Create a simple HTML page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Configure Nginx to listen on port 80 and serve the default site
+sudo rm /etc/nginx/sites-enabled/default
+
+# Create a custom Nginx server block
+sudo bash -c "echo '
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}' > /etc/nginx/sites-available/default"
+
+# Create a symbolic link to enable the new configuration
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Restart Nginx
+sudo service nginx restart
