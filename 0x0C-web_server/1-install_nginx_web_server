@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
 
 # Update package index
-sudo apt-get update
-
 # Install Nginx
-sudo apt-get install -y nginx
-
 # Create the directory for Nginx default site
-sudo mkdir -p /var/www/html
-
 # Create a simple HTML page
-echo "Hello World!" | sudo tee /var/www/html/index.html
 
-# Restart Nginx
-sudo service nginx restart
+sudo apt-get update
+sudo apt-get install -y nginx
+echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo service nginx start
