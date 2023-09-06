@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Update package index
 # Install Nginx
 # Create the directory for Nginx default site
